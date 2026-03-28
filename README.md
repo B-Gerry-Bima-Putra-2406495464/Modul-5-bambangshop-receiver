@@ -90,3 +90,8 @@ This is the place for you to write reflections:
 2. Rust memiliki aturan memory safety dan kepemilikan (ownership) yang sangat ketat di level compiler. Memutasi variabel global/statis secara langsung memiliki risiko tinggi menyebabkan data race (balapan data) ketika diakses oleh banyak thread. Makro lazy_static! memungkinkan kita menginisialisasi variabel kompleks (seperti Vec atau HashMap yang membutuhkan alokasi memori heap saat runtime) secara global yang hanya dieksekusi sekali ketika pertama kali diakses, sekaligus memaksanya dibungkus dengan perlindungan thread-safe (seperti RwLock atau Mutex).
 
 #### Reflection Subscriber-2
+1. Ya, saya melihat src/lib.rs dan belajar bahwa file tersebut digunakan untuk mendefinisikan library crate, mengatur konfigurasi aplikasi secara global (seperti APP_CONFIG dan inisialisasi REQWEST_CLIENT), serta membungkus fungsi utilitas error response agar mudah dipakai di controller.
+
+2. Observer pattern membuat Publisher tidak perlu tahu detail implementasi Subscriber. Selama Subscriber menyediakan endpoint /receive yang menerima format JSON yang sama, kita bisa menambah berapapun instance Subscriber dengan sangat mudah tanpa mengubah kode di Publisher. Untuk Publisher baru (Main App), kita hanya perlu memastikan Publisher tersebut mengirimkan payload yang sesuai saat ada event.
+
+3. Belum pernah mencoba, tapi saya tertarik untuk mencobanya setelah tutorial ini karena sangat berguna untuk Group Project, teman satu tim bisa langsung mengimpor collection dan langsung mencoba API tanpa harus meraba-raba format JSON body-nya.

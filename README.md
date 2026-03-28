@@ -85,5 +85,8 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
+1. RwLock sangat cocok untuk kasus di mana kita lebih sering membaca (menampilkan list notifikasi) daripada menulis (menerima notifikasi baru). Dengan RwLock, banyak thread bisa membaca data secara bersamaan tanpa saling memblokir (concurrent reads), selama tidak ada yang sedang menulis. Jika menggunakan Mutex, setiap proses baca maupun tulis akan memblokir thread lain, sehingga performanya akan lebih lambat jika aplikasi sedang banyak diakses untuk dilihat notifikasinya.
+
+2. Rust memiliki aturan memory safety dan kepemilikan (ownership) yang sangat ketat di level compiler. Memutasi variabel global/statis secara langsung memiliki risiko tinggi menyebabkan data race (balapan data) ketika diakses oleh banyak thread. Makro lazy_static! memungkinkan kita menginisialisasi variabel kompleks (seperti Vec atau HashMap yang membutuhkan alokasi memori heap saat runtime) secara global yang hanya dieksekusi sekali ketika pertama kali diakses, sekaligus memaksanya dibungkus dengan perlindungan thread-safe (seperti RwLock atau Mutex).
 
 #### Reflection Subscriber-2
